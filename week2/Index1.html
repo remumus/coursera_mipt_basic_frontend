@@ -8,7 +8,12 @@
 </head>
 
 <body>
-
+   <p>Это конструктор <code>Panel</code>:</p>
+   <pre><code>function Panel(element, canClose, closeHandler) {
+            this.element = element;
+     this.canClose = canClose;
+     this.closeHandler = function () { if (closeHandler) closeHandler() };
+   }</code></pre>
 </body>
 
 </html>
