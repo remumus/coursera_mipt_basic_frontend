@@ -59,7 +59,7 @@
 			<p>Этапы первой загрузки:</p>
 			<ul class="star">
 				<li>подготовка;</li>
-				<li>загрузка статики (HTTP-запрос и парсинг);</li>
+				<li>загрузка статики (<abbr title="HyperText Transfer Protocol">HTTP</abbr>-запрос и парсинг);</li>
 				<li>исполнение модулей;</li>
 				<li>инициализация базовых объектов;</li>
 				<li>отрисовка.</li>
@@ -80,7 +80,7 @@
 			<p align="justify">
 			<dl>
 				<dt>Как вы знаете, <b><em>медиана</em></b></dt>
-				<dd>это серединное, а не среднее значение в выборке.</dd>
+				<dd>- это серединное, а не среднее значение в выборке.</dd>
 			</dl>
 			Если у нас имеются числа 1, 2, 2, 3, 8, 10, 20, то медиана – 3, а среднее – 6,5.
 			В общем случае медиана отлично показывает, сколько грузится средний пользователь.
@@ -90,7 +90,8 @@
 				рассказать, сколько пользователей ускорилось, а сколько замедлилось.
 			</p>
 			<p align="justify">
-				APDEX – метрика, которая сразу говорит: хорошо или плохо. Метрика
+				<abbr title="Application Performance Index">APDEX</abbr> – метрика, которая сразу говорит: хорошо или плохо.
+				Метрика
 				работает очень просто. Мы выбираем временной интервал [0; t], такой, что если
 				время показа страницы попало в него, то пользователь счастлив. Берем еще один
 				интервал, (t; 4t] (в четыре раза больше первого), и считаем, что если страница
@@ -106,48 +107,53 @@
 			</p>
 		</section>
 		<section>
-			<h2>Как мы измеряем </h2>
+			<h3>Как мы измеряем </h3>
 			<p>Сейчас модуль обновления сам логирует все свои стадии, и можно легко понять
 				причину замедления: медленнее стал отвечать сервер либо слишком долго
-				выполняется JavaScript. Выглядит это примерно так:
+				выполняется JavaScript (JS). Выглядит это примерно так:
 			</p>
-			<pre><code>this.timings['look-ma-im-start'] = Date.now();<br>
-					this.timings['look-ma-finish'] = Date.now();
+			<pre><code>
+this.timings['look-ma-im-start'] = Date.now();<br>
+this.timings['look-ma-finish'] = Date.now();
 				</code></pre>
-			<p>C помощью Date.now() мы получаем текущее время. Все тайминги собираются и при
+			<p>C помощью <cite>Date.now()</cite> мы получаем текущее время. Все тайминги собираются и при
 				отправке рассчитываются. На этапах разница между “end” и “start” не считается,
 				а все вычисления производятся в конце:
 			</p>
 			<pre><code>
-					var totalTime = this.timings['look-ma-finish'] - this.timings['look-ma-im-start'];
+var totalTime = this.timings['look-ma-finish'] - this.timings['look-ma-im-start'];
 				</code></pre>
 			<p>И на сервер прилетают подобные записи:
 			</p>
 			<pre><code>
-					serverResponse=50&domUpdate=60
+serverResponse=50&domUpdate=60
 				</code></pre>
 		</section>
 		<section>
-			<h2>Как мы ускоряем</h2>
+			<h4>Как мы ускоряем</h4>
 			<p>Чтобы снизить время загрузки почты при выходе новых версий,
 				мы уже делаем следующее:
 			</p>
 			<ul class=star>
-				<li>включаем gzip;</li>
+				<li>включаем <abbr title="сокращение от GNU Zip">gzip</abbr>;</li>
 				<li>выставляем заголовки кэширования;</li>
-				<li>фризим CSS, JS, шаблоны и картинки;</li>
-				<li>используем CDN;</li>
+				<li>фризим <abbr title="Cascading Style Sheets">CSS</abbr>, <abbr title="JavaScript">JS</abbr>, шаблоны и
+					картинки;</li>
+				<li>используем <abbr title="Content Delivery Network">CDN</abbr>;</li>
 			</ul>
 			<p>Мы подумали: <q>А что если хранить где-то старую версию файлов, а при выходе новой
 					передавать только diff между ней и той, которая сохранена у пользователя?</q>
 				В браузере же останется просто наложить патч на клиенте.
 			</p>
-			<p>На самое деле эта идея не нова. Уже существуют стандарты для HTTP — например,
-				RFC 3229 <cite>«Delta encoding in HTTP»</cite> и <cite>«Google SDHC»</cite>, — но по разным причинам они
-				не получили должного распространения в браузерах и на серверах.
+			<p>На самое деле эта идея не нова. Уже существуют стандарты для <abbr
+					title="HyperText Transfer Protocol">HTTP</abbr> — например,
+				RFC 3229 <cite>«Delta encoding in <abbr title="HyperText Transfer Protoco">HTTP</abbr>»</cite> и
+				<cite>«Google <abbr title="Secure Digital High Capacity">SDHC</abbr>»</cite>, — но
+				по разным причинам они не получили должного распространения в браузерах и на серверах.
 			</p>
-			<p>Мы же решили сделать свой аналог на JS. Чтобы реализовать этот метод обновления,
-				начали искать реализации diff на JS. На популярных хостингах кода нашли
+			<p>Мы же решили сделать свой аналог на <abbr title="JavaScript">JS</abbr>. Чтобы реализовать этот метод
+				обновления, начали искать реализации diff на <abbr title="JavaScript">JS</abbr>. На популярных хостингах
+				кода нашли
 				библиотеки:
 			</p>
 			<ul class=dash>
@@ -184,18 +190,18 @@
 
 			</p>
 			<pre><code>
-					[
-						{
-							"k": "jane.css",
-							"p": [patch],
-							"s": 4554
-						},
-						{
-							"k": "jane.css",
-							"p": [patch],
-							"s": 4554
-						}
-					]
+[
+	{
+		"k": "jane.css",
+		"p": [patch],
+		"s": 4554
+	},
+	{
+		"k": "jane.css",
+		"p": [patch],
+		"s": 4554
+	}
+]
 				</code></pre>
 			<p>То есть это обычный массив из объектов. Каждый объект — отдельный ресурс. У
 				каждого объекта есть три свойства. k — названия ключа в localStorage для этого
@@ -203,10 +209,12 @@
 				ресурса актуальной версии, чтобы потом можно было проверить правильность
 				наложения патча на клиенте. Чексумма вычисляется по алгоритму Флетчера.
 			</p>
-			<p>Алгоритм Бройдена — Флетчера — Гольдфарба — Шанно (BFGS)
-				— итерационный метод численной оптимизации, предназначенный для
-				нахождения локального максимума/минимума нелинейного функционала
-				без ограничений.
+			<dl>
+				<dt>Алгоритм Бройдена — Флетчера — Гольдфарба — Шанно <abbr>(BFGS)</abbr></dt>
+				<dd>— итерационный метод численной оптимизации, предназначенный для
+					нахождения локального максимума/минимума нелинейного функционала
+					без ограничений.</dd>
+			</dl>
 			</p>
 			<div style="background: #bbbbbb; width: 500px; position: relative; left: 20px; padding-left: 20px;">
 				дано &epsilon; , x<sub>0</sub><br>
@@ -235,7 +243,7 @@
 			</p>
 		</section>
 		<section>
-			<h2>ИТОГ</h2>
+			<h5>ИТОГ</h5>
 			<p>Фактически мы экономим 80-90% трафика. Размер загружаемой статитки в байтах:
 			</p>
 			<table>
@@ -263,26 +271,60 @@
 					</tr>
 				</tbody>
 			</table>
-
+			<address>
+				Автор: @doochik<br>
+				С++ разработик<br>
+				Электронная почта: <a href=maailto: doochik@yandex-team.ru>(doochik@yandex-team.ru)</a><br>
+				Компания: Яндекс
+			</address>
+		</section>
+	</article>
+	<article>
+		<h6>
+			Комментарии (3):
+		</h6>
+		<section>
+			<p>
+				- Mogaika <a href=mailto:mogaika@yandex-team.ru>(mogaika@yandex-team.ru)</a> <time
+					datetime="2014-11-30T17:05">30 ноября 2014 в 17:05</time>
+			</p>
+			<p>
+				А можете привести сравнение, на сколько быстрее грузится lite версия?
+			</p>
+			<p>
+				- JIguse <a href=mailto:mrawesome@yandex.ru>(mrawesome@yandex.ru)</a> <time datetime="2014-11-29T21:30">29
+					ноября 2014 в 21:30</time>
+			</p>
+			<p>
+				Спасибо за статью, познавательно. Здорово, что Яндекс делится некоторыми
+				подробностями о внутренней работе сервисов.
+			</p>
+			<p>
+				- Brister <a href=mailto:brist89@yandex-team.ru>(brist89@yandex-team.ru)</a> <time
+					datetime="2014-11-24T13:13">24 ноября 2014 в 13:13</time>
+			</p>
+			<p>(кол-во счастливых пользователей + кол-во удовлетворенных / 2) / (кол-во всех).
+				Получается значение от нуля до единицы, которое, видимо, лучше всего показывает,
+				хорошо или плохо работает почта.
+			</p>
+			<p>
+				наверное все-таки от 0.5 до 1
+			</p>
+			<p>
+				- alexeimois <a href=mailto:test@yandex.ru>(test@yandex.ru)</a> <time datetime="2014-11-22T17:35">22 ноября
+					2014 в 17:35</time>
+			</p>
+			<p>Мы измеряем скорость загрузки с помощью Яндекс.Метрики:
+				<a href=help.yandex.ru/metrika/reports/monitoring_timing.xml>help.yandex.ru/metrika/reports/monitoring_timing.xml
+				</a>
+			</p>
 		</section>
 	</article>
 	<footer>
 		<address>
-			Автор: @doochik<br>
-			С++ разработик<br>
-			Электронная почта: (doochik@yandex-team.ru)<br>
-			Компания: Яндекс
-		</address>
-
-		<p>
-			Мы измеряем скорость загрузки с помощью Яндекс.Метрики:<br>
-			<a href=help.yandex.ru/metrika/reports/monitoring_timing.xml>monitoring timing</a>
-		</p>
-		<address>
-			&copy; Яндекс, help@yandex.ru, Хохрякова, 10
+			&copy; Яндекс, <a href=mailto:"help@yandex.ru">help@yandex.ru</a>, Хохрякова, 10
 		</address>
 	</footer>
-
 </body>
 
 </html>
