@@ -185,7 +185,7 @@ id, class, style, title
 вместо solid написать dotted
 <table width="500" style="border: 2px dotted"> 
 
-
+https://yandex.ru/video/preview/?filmId=5296614513841111319&from=tabbar&parent-reqid=1604257667171183-53465532496515855500275-production-app-host-sas-web-yp-154&text=css+%D1%81%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D1%8B
 
 
 
