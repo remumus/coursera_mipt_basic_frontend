@@ -2,53 +2,53 @@
 <html>
 
 <head>
-   <title>CSS-селекторы</title>
-   <meta charset="utf-8">
+    <title>CSS-селекторы</title>
+    <meta charset="utf-8">
 
-   <link rel="stylesheet" type="text/css" href="../global.css">
+    <link rel="stylesheet" type="text/css" href="../global.css">
 </head>
 
 <body>
-   <h1 class="global-heading">&nbsp;</h1>
-   <p>Решите задачу, используя <code>background: &lt;color&gt;</code> и <code>border: 2px solid #000</code></p>
+    <h1 class="global-heading">&nbsp;</h1>
+    <p>Решите задачу, используя <code>background: &lt;color&gt;</code> и <code>border: 2px solid #000</code></p>
 
-   <main class="global-results">
-      <style>
-         /* ваш код здесь... */
-         .c1 {
-            border: 2px solid #000;
-            background: #ff6698
-         }
+    <main class="global-results">
+        <style>
+            /* ваш код здесь... */
+            .c1 {
+                background: #ff6698;
+                border: 2px solid #000;
+            }
 
-         .c2 {
-            background: #ffb366;
-         }
+            .c1.c2 {
+                background: #6698ff;
+            }
 
-         .c1.c2 {
-            background: #6698ff;
-         }
-      </style>
+            .c2 {
+                background: #ffb698;
+            }
+        </style>
 
-      <section class="global-result">
-         <article class="global-scope">
-            <div class="c1 c2"></div>
-            <div class="c1"></div>
-            <div class="c2"></div>
-            <div class="c1"></div>
-         </article>
-      </section>
+        <section class="global-result">
+            <article class="global-scope">
+                <div class="c1 c2"></div>
+                <div class="c1"></div>
+                <div class="c2"></div>
+                <div class="c1"></div>
+            </article>
+        </section>
 
-      <section class="global-result">
-         <img class="global-goal">
-      </section>
-   </main>
+        <section class="global-result">
+            <img class="global-goal">
+        </section>
+    </main>
 
-   <nav class="global-nav">
-      <a class="global-prev">Предыдущее</a>
-      <a class="global-next">Следующее</a>
-   </nav>
+    <nav class="global-nav">
+        <a class="global-prev">Предыдущее</a>
+        <a class="global-next">Следующее</a>
+    </nav>
 
-   <script src="../global.js"></script>
+    <script src="../global.js"></script>
 </body>
 
 </html>

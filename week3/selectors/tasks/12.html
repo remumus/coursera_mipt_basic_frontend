@@ -15,19 +15,11 @@
     <main class="global-results">
         <style>
             /* ваш код здесь... */
-            div:nth-of-type(2n+2) {
-                background: #ffff66;
+            div:empty {
+                background: #ffff68;
             }
 
-            div:nth-of-type(5) {
-                background: #ffff66;
-            }
-
-            div:nth-of-type(2n+7) {
-                background: #ffb366;
-            }
-
-            div:nth-last-of-type(2n+7) {
+            div:not(:empty) {
                 background: #ffb366;
             }
         </style>
